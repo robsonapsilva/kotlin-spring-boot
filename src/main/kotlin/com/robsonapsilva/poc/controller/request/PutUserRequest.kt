@@ -11,6 +11,4 @@ data class PutUserRequest(
     @field:CheckEmail
     val email: String,
 
-    @field:NotBlank
-    val password: String
-)
+    )
