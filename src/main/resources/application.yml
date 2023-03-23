@@ -11,3 +11,9 @@ spring:
       enabled: true
   jackson:
     default-property-inclusion: non_null
+    deserialization:
+      fail-on-unknown-properties: false
+
+jwt:
+  secret: 227c8378-be62-4b7f-9a69-c8967e40b6c9
+  expiration: 600000

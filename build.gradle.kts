@@ -24,8 +24,10 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.0.4")
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.flywaydb:flyway-core:9.16.0")
+    compileOnly("javax.xml.bind:jaxb-api:2.1")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
