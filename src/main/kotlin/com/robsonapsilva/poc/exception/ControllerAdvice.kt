@@ -1,5 +1,6 @@
 package com.robsonapsilva.poc.exception
 
+import org.springframework.data.mapping.PropertyReferenceException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindException
@@ -21,6 +22,16 @@ class ControllerAdvice {
     fun notFoundException(ex: PreCondintionFailedException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val erro = ErrorResponse(HttpStatus.PRECONDITION_FAILED.value(), ex.message, null)
         return ResponseEntity(erro, HttpStatus.PRECONDITION_FAILED)
+    }
+
+    @ExceptionHandler(PropertyReferenceException::class)
+    fun handlePropertyReferenceException(ex: PropertyReferenceException, request: WebRequest)
+            : ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            HttpStatus.BAD_REQUEST.value(), ex.localizedMessage,
+            listOf(FieldErrorResponse("Atributo inválido", ex.propertyName))
+        )
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
 

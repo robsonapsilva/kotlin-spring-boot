@@ -11,3 +11,5 @@ spring:
       enabled: true
   jackson:
     default-property-inclusion: non_null
+    deserialization:
+      fail-on-unknown-properties: false

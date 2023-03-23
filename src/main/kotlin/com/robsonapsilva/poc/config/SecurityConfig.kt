@@ -16,16 +16,6 @@ class SecurityConfig {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.cors().and().csrf().disable()
-        http.authorizeHttpRequests().requestMatchers(
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/swagger-ui/**",
-            "/v3/api-docs",
-            "/webjars/**"
-        ).permitAll()
         http.authorizeHttpRequests().anyRequest().permitAll()
         return http.build()
     }
