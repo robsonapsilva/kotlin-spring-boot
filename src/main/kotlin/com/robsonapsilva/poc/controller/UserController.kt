@@ -7,6 +7,7 @@ import com.robsonapsilva.poc.extension.toResponse
 import com.robsonapsilva.poc.extension.toUserModel
 import com.robsonapsilva.poc.security.AdminAndOwnerAuthorized
 import com.robsonapsilva.poc.service.UserService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -23,6 +24,7 @@ class UserController(private val userService: UserService) {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @SecurityRequirement(name = "Bearer Authentication")
     fun list(@PageableDefault(page = 0, size = 10) pageable: Pageable): ResponseEntity<Page<UserResponse>> {
         return ResponseEntity.ok().body(userService.list(pageable).map { it.toResponse() })
     }

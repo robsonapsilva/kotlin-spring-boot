@@ -11,16 +11,15 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 
 
 @Configuration
-@EnableMethodSecurity
-class SecurityConfig(
+open class SecurityConfig(
     private val customAuthenticationEntryPoint: CustomAuthenticationEntryPoint,
     private val jwtUtil: JwtUtil,
     private val userDetailsCustomService: UserDetailsCustomService,
@@ -42,6 +41,17 @@ class SecurityConfig(
             .addFilter(AuthorizationFilter(authenticationManager, jwtUtil, userDetailsCustomService))
             .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint)
         return http.build()
+    }
+
+    @Bean
+    fun webSecurityCustomizer(): WebSecurityCustomizer {
+        return WebSecurityCustomizer { web ->
+            web.ignoring().requestMatchers(
+                "/swagger-ui.html**",
+                "/swagger-ui/**",
+                "/v3/api-docs/**"
+            )
+        }
     }
 
     private fun authManager(http: HttpSecurity): AuthenticationManager {

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:poc-db;DATABASE_TO_UPPER=false;NON_KEYWORDS=USER,NAME;
+    url: jdbc:h2:file:~/poc-db;DATABASE_TO_UPPER=false;NON_KEYWORDS=USER,NAME;
     driver-class-name: org.h2.Driver
     username: sa
     password: root
@@ -17,3 +17,8 @@ spring:
 jwt:
   secret: 227c8378-be62-4b7f-9a69-c8967e40b6c9
   expiration: 600000
+
+springdoc:
+  show-login-endpoint: true
+  swagger-ui:
+    default-models-expand-depth: -1
